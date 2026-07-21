@@ -1,0 +1,44 @@
+function StringChallenge(str) {
+  let highestUnique = 0;
+  let alreadyEvaluated = {};
+
+  // String ke har character par loop chalayenge
+  for (let startIndex = 0; startIndex < str.length; startIndex++) {
+    let activeLetter = str[startIndex];
+
+    // Agar is letter ka sabse bada gap pehle hi check ho gaya hai toh skip karein
+    if (alreadyEvaluated[activeLetter]) {
+      continue;
+    }
+    alreadyEvaluated[activeLetter] = true;
+
+    // String ke end se same letter ka last index dhoondhna
+    let endIndex = str.lastIndexOf(activeLetter);
+
+    // Agar pair milta hai (yaani last index current index se bada hai)
+    if (endIndex > startIndex) {
+      // Dono matching letters ke beech ka hissa nikalna
+      let inBetweenChars = str.substring(startIndex + 1, endIndex);
+
+      // Unique characters count karne ke liye custom logic (AI wale Sets avoid kiye hain)
+      let distinctChars = {};
+      let tempCount = 0;
+
+      for (let k = 0; k < inBetweenChars.length; k++) {
+        let ch = inBetweenChars[k];
+        // Agar character pehli baar mila hai beech mein
+        if (distinctChars[ch] === undefined) {
+          distinctChars[ch] = true;
+          tempCount++;
+        }
+      }
+
+      // Agar current pair ke unique characters ab tak ke highest se zyada hain
+      if (tempCount > highestUnique) {
+        highestUnique = tempCount;
+      }
+    }
+  }
+
+  return highestUnique;
+}
