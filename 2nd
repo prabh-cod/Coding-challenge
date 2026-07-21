@@ -1,0 +1,25 @@
+function SearchingChallenge(strArr) {
+  let m = strArr.map(row => row.split(''));
+  let h = m.length;
+  let w = m[0].length;
+  let c = 0;
+
+  function explore(x, y) {
+    if (x < 0 || y < 0 || x >= h || y >= w || m[x][y] !== '0') return;
+    m[x][y] = '1';
+    explore(x + 1, y);
+    explore(x - 1, y);
+    explore(x, y + 1);
+    explore(x, y - 1);
+  }
+
+  for (let i = 0; i < h; i++) {
+    for (let j = 0; j < w; j++) {
+      if (m[i][j] === '0') {
+        c++;
+        explore(i, j);
+      }
+    }
+  }
+  return c;
+}
