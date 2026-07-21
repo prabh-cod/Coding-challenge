@@ -1,0 +1,20 @@
+// Selecting the button element dynamically 
+const stateSwitchBtn = document.querySelector('button');
+
+// Custom named function to handle the toggle logic
+function processStateChange(event) {
+  const targetNode = event.target;
+  const visibleText = targetNode.textContent.trim();
+
+  // Safely replacing only the text inside the DOM element
+  if (visibleText === 'ON') {
+    targetNode.textContent = 'OFF';
+  } else {
+    targetNode.textContent = 'ON';
+  }
+}
+
+// Attaching the event listener
+if (stateSwitchBtn) {
+  stateSwitchBtn.addEventListener('click', processStateChange);
+}
