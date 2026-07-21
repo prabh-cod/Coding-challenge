@@ -1,0 +1,32 @@
+function ArrayChallenge(strArr) {
+  const children = {};
+  const parents = {};
+
+  for (let i = 0; i < strArr.length; i++) {
+    const pair = strArr[i].replace(/[()]/g, '').split(',');
+    const c = pair[0];
+    const p = pair[1];
+
+    if (children[c]) return "false";
+    children[c] = p;
+
+    if (!parents[p]) parents[p] = [];
+    parents[p].push(c);
+    if (parents[p].length > 2) return "false";
+  }
+
+  let rootCount = 0;
+  const nodes = new Set(Object.keys(children));
+  
+  for (let child in children) {
+    nodes.add(children[child]);
+  }
+
+  for (let node of nodes) {
+    if (!children[node]) {
+      rootCount++;
+    }
+  }
+
+  return rootCount === 1 ? "true" : "false";
+}
